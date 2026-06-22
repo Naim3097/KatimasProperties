@@ -273,7 +273,7 @@ export const projects: Project[] = [
       { src: "/projects/kasa-lumina/garden.jpg", alt: "Landscaped garden and porch of a modern single-storey residence" },
       { src: "/projects/kasa-lumina/exterior-2.jpg", alt: "Clean, contemporary single-storey facade with a manicured lawn" },
     ],
-    hero: "/projects/kasa-lumina/hero.jpg",
+    hero: "/projects/kasa-lumina/front-view.jpg",
     galleryAvailable: true,
     representative: true,
   },

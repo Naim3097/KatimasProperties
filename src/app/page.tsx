@@ -11,6 +11,8 @@ import { Marquee } from "@/components/Marquee";
 import { ExpertiseList, type ExpertiseItem } from "@/components/ExpertiseList";
 import { FeatureProject } from "@/components/FeatureProject";
 import { CtaBand } from "@/components/CtaBand";
+import { HeroVideo } from "@/components/HeroVideo";
+import { IconGrowth, IconCompass, IconUsers } from "@/components/icons";
 import { heroHome, projects, landBanking, pillars } from "@/lib/site";
 
 const stats = [
@@ -26,26 +28,28 @@ const expertise: ExpertiseItem[] = [
     title: "Strategic Land Banking",
     description: pillars[0].description,
     href: "/land-banking",
-    image: "/land/aerial-hero.jpg",
-    alt: "Aerial view of prime development land",
+    image: "/visual/land.jpg",
+    alt: "Aerial view of parcelled development land",
   },
   {
     index: "02",
     title: "Project Management",
     description: pillars[1].description,
     href: "/about",
-    image: "/projects/kasa-kasturi/dining-kitchen.jpg",
-    alt: "Refined interior delivered with operational precision",
+    image: "/visual/project-management.jpg",
+    alt: "A professional holding a scale model of a development",
   },
   {
     index: "03",
     title: "Construction Services",
     description: pillars[2].description,
     href: "/portfolio",
-    image: "/projects/kasa-kasturi/exterior.jpg",
-    alt: "Completed residential development by Katimas Properties",
+    image: "/visual/construction.jpg",
+    alt: "Construction team at work inside a building under construction",
   },
 ];
+
+const landIcons = [IconGrowth, IconCompass, IconUsers];
 
 export default function HomePage() {
   return (
@@ -53,28 +57,23 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* Hero                                                             */}
       {/* ---------------------------------------------------------------- */}
-      <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-navy">
+      <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-brand">
         <div className="absolute inset-0 -z-10">
-          <Parallax className="absolute inset-x-0 -top-[8%] h-[116%]" distance={90}>
-            <Image
-              src="/projects/kasa-kasturi/exterior.jpg"
-              alt="A completed Katimas Properties residential development"
-              fill
-              priority
-              sizes="100vw"
-              className="animate-kenburns object-cover"
-            />
-          </Parallax>
-          <div className="absolute inset-0 bg-gradient-to-r from-navy/95 via-navy/70 to-navy/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-navy/20" />
+          <HeroVideo
+            poster="/video/hero-poster.jpg"
+            desktop="/video/hero.mp4"
+            mobile="/video/hero-mobile.mp4"
+          />
+          <div className="absolute inset-0 bg-brand/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand/80 via-transparent to-brand/30" />
         </div>
 
         <Container>
           <div className="relative w-full pb-24 pt-32 lg:pb-28">
             <Reveal>
-              <div className="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
-                <span className="text-clay">Est. 2020</span>
-                <span className="h-px w-8 bg-white/30" />
+              <div className="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.22em] text-white/80">
+                <span className="text-white">Est. 2020</span>
+                <span className="h-px w-8 bg-white/40" />
                 <span>Sarawak Property Developer</span>
               </div>
             </Reveal>
@@ -95,7 +94,7 @@ export default function HomePage() {
               delay={700}
               className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
             >
-              <p className="max-w-md text-pretty text-lg leading-relaxed text-white/80">
+              <p className="max-w-md text-pretty text-lg leading-relaxed text-white/85">
                 {heroHome.subtitle}
               </p>
               <div className="flex flex-col gap-4 sm:flex-row">
@@ -113,9 +112,9 @@ export default function HomePage() {
         </Container>
 
         <div className="pointer-events-none absolute inset-x-0 bottom-7 flex justify-center">
-          <span className="flex flex-col items-center gap-2 text-[0.65rem] uppercase tracking-[0.25em] text-white/55">
+          <span className="flex flex-col items-center gap-2 text-[0.65rem] uppercase tracking-[0.25em] text-white/70">
             Scroll
-            <span className="h-10 w-px bg-gradient-to-b from-white/50 to-transparent" />
+            <span className="h-10 w-px bg-gradient-to-b from-white/60 to-transparent" />
           </span>
         </div>
       </section>
@@ -125,9 +124,20 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       <section className="bg-white py-24 lg:py-32">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
             <div className="lg:col-span-4">
               <Eyebrow>Who We Are</Eyebrow>
+              <Reveal className="mt-7">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem] sm:aspect-[2/1] lg:aspect-[4/5]">
+                  <Image
+                    src="/visual/who-we-are.jpg"
+                    alt="A Katimas Properties construction professional on a residential site"
+                    fill
+                    sizes="(min-width: 1024px) 30vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              </Reveal>
             </div>
             <div className="lg:col-span-8">
               <Reveal>
@@ -164,7 +174,7 @@ export default function HomePage() {
       </section>
 
       {/* Big display marquee */}
-      <section className="overflow-hidden border-y border-line bg-sand py-9 lg:py-12">
+      <section className="overflow-hidden bg-orange py-9 lg:py-12">
         <Marquee
           big
           items={[
@@ -186,7 +196,7 @@ export default function HomePage() {
             <div>
               <Eyebrow>What We Do</Eyebrow>
               <h2 className="display mt-5 text-4xl text-ink sm:text-5xl">
-                Three disciplines, one standard
+                Three Disciplines, One Standard
               </h2>
             </div>
             <p className="max-w-sm text-pretty text-muted">
@@ -202,17 +212,12 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* Cinematic philosophy                                             */}
       {/* ---------------------------------------------------------------- */}
-      <section className="relative isolate overflow-hidden bg-navy py-28 text-white lg:py-40">
+      <section className="relative isolate overflow-hidden bg-brand py-28 text-white lg:py-40">
         <Parallax className="absolute inset-x-0 -top-[10%] -z-10 h-[120%]" distance={110}>
-          <Image
-            src="/projects/kasa-kasturi/side.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover opacity-35"
-          />
+          <Image src="/visual/family.jpg" alt="" fill sizes="100vw" className="object-cover" />
         </Parallax>
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-navy via-navy/85 to-navy/60" />
+        <div className="absolute inset-0 -z-10 bg-brand/60" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-brand/80 via-brand/35 to-brand/55" />
         <Container>
           <Eyebrow tone="white">Our Philosophy</Eyebrow>
           <RevealLines
@@ -226,7 +231,7 @@ export default function HomePage() {
             ]}
           />
           <Reveal delay={300} className="mt-9 max-w-xl">
-            <p className="text-lg leading-relaxed text-white/70">
+            <p className="text-lg leading-relaxed text-white/85">
               We go beyond construction to foster vibrant communities where individuals and families
               find a true sense of belonging and success.
             </p>
@@ -243,9 +248,9 @@ export default function HomePage() {
             <div>
               <Eyebrow>Selected Work</Eyebrow>
               <h2 className="display mt-5 text-4xl text-ink sm:text-5xl">
-                Where we deliver as
+                Where We Deliver as the
                 <br />
-                main contractor
+                Main Contractor
               </h2>
             </div>
             <p className="max-w-xs text-pretty text-muted">
@@ -261,13 +266,13 @@ export default function HomePage() {
             ))}
           </div>
 
-          <Reveal className="mt-20 flex flex-col gap-6 overflow-hidden rounded-[1.75rem] bg-ink px-8 py-10 text-white sm:flex-row sm:items-center sm:justify-between lg:px-12 lg:py-12">
+          <Reveal className="mt-20 flex flex-col gap-6 overflow-hidden rounded-[1.75rem] bg-brand px-8 py-10 text-white sm:flex-row sm:items-center sm:justify-between lg:px-12 lg:py-12">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-clay">
-                On the horizon
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange">
+                On the Horizon
               </p>
-              <h3 className="display mt-3 text-2xl lg:text-3xl">Katimas-developed projects</h3>
-              <p className="mt-2 max-w-md text-sm text-white/60">
+              <h3 className="display mt-3 text-2xl lg:text-3xl">Katimas-Developed Projects</h3>
+              <p className="mt-2 max-w-md text-sm text-white/70">
                 Our own fully owned developments are taking shape — register to hear first.
               </p>
             </div>
@@ -281,23 +286,18 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* Land banking                                                     */}
       {/* ---------------------------------------------------------------- */}
-      <section className="relative isolate overflow-hidden bg-navy py-24 text-white lg:py-32">
-        <Image
-          src="/land/aerial-hero.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="-z-10 object-cover opacity-25"
-        />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy via-navy/90 to-navy/70" />
+      <section className="relative isolate overflow-hidden bg-brand py-24 text-white lg:py-32">
+        <Image src="/visual/land.jpg" alt="" fill sizes="100vw" className="-z-10 object-cover" />
+        <div className="absolute inset-0 -z-10 bg-brand/65" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-brand/90 via-brand/55 to-brand/40" />
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
               <Eyebrow tone="white">Land Banking</Eyebrow>
               <h2 className="display mt-6 text-balance text-4xl leading-[1.05] sm:text-5xl lg:text-[3.25rem]">
-                <NumberTicker value={400} /> acres, positioned for tomorrow
+                <NumberTicker value={400} /> Acres, Positioned for Tomorrow
               </h2>
-              <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-white/75">
+              <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-white/85">
                 {landBanking.hero.intro}
               </p>
               <div className="mt-9">
@@ -306,27 +306,37 @@ export default function HomePage() {
                 </Button>
               </div>
             </div>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {landBanking.whyItMatters.map((w, i) => (
-                <Reveal
-                  key={w.title}
-                  delay={i * 90}
-                  className="rounded-2xl border border-white/12 bg-white/[0.05] p-6 backdrop-blur"
-                >
-                  <p className="display text-lg text-white">{w.title}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-white/65">{w.description}</p>
-                </Reveal>
-              ))}
+            <div className="grid gap-4">
+              {landBanking.whyItMatters.map((w, i) => {
+                const Icon = landIcons[i] ?? IconGrowth;
+                return (
+                  <Reveal
+                    key={w.title}
+                    delay={i * 90}
+                    className="flex items-start gap-4 rounded-2xl border border-white/15 bg-white/[0.08] p-5 backdrop-blur"
+                  >
+                    <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white">
+                      <Icon className="h-6 w-6" />
+                    </span>
+                    <div>
+                      <p className="display text-lg text-white">{w.title}</p>
+                      <p className="mt-1.5 text-sm leading-relaxed text-white/75">{w.description}</p>
+                    </div>
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
         </Container>
       </section>
 
       <CtaBand
-        headline="Let's create spaces where life happens"
+        headline="Let's Create Spaces Where Life Happens"
         subtext="Whether you are a landowner, investor or developer, we would love to explore how we can build something lasting together."
         ctaLabel="Get in Touch"
         ctaHref="/contact"
+        image="/visual/team.jpg"
+        overlay="orange"
       />
     </>
   );

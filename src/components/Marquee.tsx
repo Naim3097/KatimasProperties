@@ -18,13 +18,16 @@ export function Marquee({
           className={cn(
             "inline-flex items-center whitespace-nowrap",
             big
-              ? "mx-6 gap-6 font-[var(--font-display)] text-3xl text-ink/90 sm:text-4xl lg:text-5xl"
+              ? "mx-6 gap-6 text-3xl leading-[1.4] text-white sm:text-4xl lg:text-5xl"
               : "mx-7 gap-7 text-sm font-medium uppercase tracking-[0.18em] text-muted",
           )}
         >
           <span className={cn(big && "display")}>{t}</span>
           <span
-            className={cn("rounded-full bg-clay", big ? "h-2.5 w-2.5" : "h-1.5 w-1.5 bg-clay/60")}
+            className={cn(
+              "rounded-full",
+              big ? "h-2.5 w-2.5 bg-white/55" : "h-1.5 w-1.5 bg-clay/60",
+            )}
           />
         </span>
       ))}

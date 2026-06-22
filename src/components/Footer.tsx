@@ -16,13 +16,6 @@ export function Footer() {
   return (
     <footer className="bg-navy text-white/70">
       <Container>
-        <div className="border-b border-white/10 py-12 lg:py-16">
-          <p className="display text-[clamp(2.25rem,8vw,7rem)] leading-[0.9] tracking-[-0.03em] text-white">
-            Crafting spaces
-            <br />
-            <span className="text-white/45">where life happens.</span>
-          </p>
-        </div>
         <div className="grid gap-12 py-16 lg:grid-cols-12 lg:gap-8 lg:py-20">
           {/* Brand */}
           <div className="lg:col-span-4">
@@ -34,8 +27,8 @@ export function Footer() {
               className="h-11 w-auto"
             />
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/60">
-              Crafting spaces where life happens. A Sarawak-based property developer,
-              project-management specialist and strategic land-banking firm.
+              A Sarawak-based property developer, project-management specialist and strategic
+              land-banking firm.
             </p>
             <div className="mt-7 flex items-center gap-3">
               {socials.map((s) => {
