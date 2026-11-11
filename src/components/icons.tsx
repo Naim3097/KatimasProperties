@@ -95,6 +95,30 @@ export const IconGrowth = (p: SVGProps<SVGSVGElement>) => (
   </Line>
 );
 
+/* ---- About stats ----------------------------------------------------- */
+export const IconCalendar = (p: SVGProps<SVGSVGElement>) => (
+  <Line {...p}>
+    <rect x="3.5" y="5" width="17" height="15.5" rx="2" />
+    <path d="M3.5 10h17M8 3v4M16 3v4" />
+    <path d="m9.5 15 1.8 1.8 3.4-3.6" />
+  </Line>
+);
+
+export const IconAward = (p: SVGProps<SVGSVGElement>) => (
+  <Line {...p}>
+    <circle cx="12" cy="9" r="5.5" />
+    <path d="m8.6 13.4-1.6 7.1 5-2.6 5 2.6-1.6-7.1" />
+    <path d="m12 6.5.8 1.7 1.8.2-1.3 1.2.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.2 1.8-.2.8-1.7Z" />
+  </Line>
+);
+
+export const IconLayers = (p: SVGProps<SVGSVGElement>) => (
+  <Line {...p}>
+    <path d="m12 3 9 5-9 5-9-5 9-5Z" />
+    <path d="m3 13 9 5 9-5" />
+  </Line>
+);
+
 /* ---- Contact / footer ------------------------------------------------ */
 export const IconPhone = (p: SVGProps<SVGSVGElement>) => (
   <Line {...p}>

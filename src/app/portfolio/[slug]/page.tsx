@@ -10,10 +10,17 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/seo";
-import { IconArrowRight, IconArrowUpRight, IconPlay } from "@/components/icons";
+import { IconArrowUpRight, IconPlay } from "@/components/icons";
 import { projects, getProject } from "@/lib/site";
 
 const accentMap = {
+  luma: {
+    text: "text-brand",
+    bg: "bg-brand",
+    border: "border-brand",
+    grad: "from-[#14203f] via-[#1c2c54] to-[#2a469a]",
+    eyebrow: "brand" as const,
+  },
   kasturi: {
     text: "text-kasturi",
     bg: "bg-kasturi",
@@ -85,7 +92,7 @@ export default async function ProjectPage({
               src={project.hero}
               alt={`${project.name} development`}
               fill
-              priority
+              preload
               sizes="100vw"
               className="object-cover"
             />
@@ -134,9 +141,15 @@ export default async function ProjectPage({
                 {project.brief}
               </p>
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                <Button href="/contact" variant="primary" withArrow>
-                  Discuss Your Project
-                </Button>
+                {project.brochure ? (
+                  <Button href={project.brochure} variant="primary" withArrow download>
+                    Download Brochure
+                  </Button>
+                ) : (
+                  <Button href="/contact" variant="primary" withArrow>
+                    Discuss Your Project
+                  </Button>
+                )}
                 {project.galleryAvailable && (
                   <Button href="#gallery" variant="outline">
                     View the Gallery
@@ -172,16 +185,15 @@ export default async function ProjectPage({
         <Container>
           <Eyebrow tone={a.eyebrow}>Property Gallery</Eyebrow>
           <h2 className="display mt-5 max-w-2xl text-3xl leading-tight text-ink sm:text-4xl">
-            {project.representative
-              ? "A glimpse of the vision"
-              : project.galleryAvailable
+            {!project.galleryAvailable
+              ? "Imagery is on its way"
+              : project.statusTone === "complete"
                 ? "A closer look at the finished development"
-                : "Imagery is on its way"}
+                : "A glimpse of the vision"}
           </h2>
-          {project.representative && (
+          {project.galleryAvailable && project.statusTone === "ongoing" && (
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">
-              Representative imagery shown — the developer&rsquo;s final 3D renders for {project.name}{" "}
-              will appear here once available.
+              3D renders shown are artist&rsquo;s impressions only.
             </p>
           )}
 
@@ -202,7 +214,7 @@ export default async function ProjectPage({
                     <source src={project.video.src} type="video/mp4" />
                   </video>
                   <span className="pointer-events-none absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-black/45 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur">
-                    <IconPlay className="h-4 w-4" /> Walkthrough
+                    <IconPlay className="h-4 w-4" /> {project.video.label}
                   </span>
                 </Reveal>
               )}
@@ -231,13 +243,17 @@ export default async function ProjectPage({
             <div
               className={`mt-12 flex flex-col items-center justify-center gap-6 rounded-[2rem] bg-gradient-to-br ${a.grad} px-6 py-20 text-center`}
             >
-              <Image
-                src={project.logo}
-                alt={project.name}
-                width={448}
-                height={260}
-                className="h-auto w-56 brightness-0 invert"
-              />
+              {project.logo ? (
+                <Image
+                  src={project.logo}
+                  alt={project.name}
+                  width={448}
+                  height={260}
+                  className="h-auto w-56 brightness-0 invert"
+                />
+              ) : (
+                <p className="display text-4xl text-white">{project.name}</p>
+              )}
               <p className="max-w-md text-pretty text-white/85">
                 3D renders and photography for {project.name} are being prepared and will appear
                 here soon. In the meantime, reach out to learn more about the development.

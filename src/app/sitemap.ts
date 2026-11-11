@@ -11,6 +11,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/portfolio", priority: 0.8 },
     { path: "/land-banking", priority: 0.8 },
     { path: "/contact", priority: 0.7 },
+    { path: "/privacy-notice", priority: 0.3 },
+    { path: "/disclaimer", priority: 0.3 },
   ].map((p) => ({
     url: `${base}${p.path}`,
     lastModified: now,

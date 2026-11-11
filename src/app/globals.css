@@ -23,6 +23,11 @@
   --color-clay-light: #c87a4e;
   --color-orange: #f37021;
 
+  /* Client palette, as specified in the website comments (blue = Katimas logo) */
+  --color-katimas-blue: #2b3990;
+  --color-katimas-cyan: #008fba;
+  --color-katimas-green: #4eb748;
+
   /* Project sub-brands */
   --color-kasturi: #9a462a;
   --color-lumina: #df7a26;

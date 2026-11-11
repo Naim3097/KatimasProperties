@@ -52,9 +52,9 @@ export default function PortfolioPage() {
             />
           </div>
 
-          <div className="mt-12 grid gap-7 md:grid-cols-2">
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
-              <Reveal key={project.slug}>
+              <Reveal key={project.slug} className="h-full">
                 <ProjectCard project={project} />
               </Reveal>
             ))}

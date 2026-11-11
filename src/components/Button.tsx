@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { IconArrowRight } from "./icons";
 
-type Variant = "primary" | "light" | "outline" | "outlineLight" | "ghost";
+type Variant = "primary" | "orange" | "light" | "outline" | "outlineLight" | "ghost";
 type Size = "sm" | "md" | "lg";
 
 const base =
@@ -17,6 +17,7 @@ const sizes: Record<Size, string> = {
 
 const variants: Record<Variant, string> = {
   primary: "bg-brand text-white hover:bg-brand-dark shadow-soft hover:shadow-lift",
+  orange: "bg-orange text-white hover:bg-[#d95f14] shadow-soft hover:shadow-lift",
   light: "bg-white text-ink hover:bg-sand shadow-soft hover:shadow-lift",
   outline: "border border-line text-ink hover:border-brand hover:text-brand",
   outlineLight: "border border-white/45 text-white hover:bg-white hover:text-ink",
@@ -31,6 +32,7 @@ export function Button({
   withArrow = false,
   className,
   ariaLabel,
+  download = false,
 }: {
   href: string;
   children: ReactNode;
@@ -39,6 +41,8 @@ export function Button({
   withArrow?: boolean;
   className?: string;
   ariaLabel?: string;
+  /** Link to a file in /public (e.g. a PDF) that the browser should download. */
+  download?: boolean;
 }) {
   const classes = cn(base, sizes[size], variants[variant], className);
   const inner = (
@@ -55,6 +59,14 @@ export function Button({
       </span>
     </>
   );
+
+  if (download) {
+    return (
+      <a href={href} download className={classes} aria-label={ariaLabel}>
+        {inner}
+      </a>
+    );
+  }
 
   const isExternal = /^(https?:|tel:|mailto:|#)/.test(href);
   if (isExternal) {

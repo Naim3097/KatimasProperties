@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
@@ -8,7 +9,7 @@ import { NumberTicker } from "@/components/NumberTicker";
 import { Parallax } from "@/components/Parallax";
 import { Magnetic } from "@/components/Magnetic";
 import { Marquee } from "@/components/Marquee";
-import { ExpertiseList, type ExpertiseItem } from "@/components/ExpertiseList";
+import { DisciplineCards, type Discipline } from "@/components/DisciplineCards";
 import { FeatureProject } from "@/components/FeatureProject";
 import { CtaBand } from "@/components/CtaBand";
 import { HeroVideo } from "@/components/HeroVideo";
@@ -22,7 +23,7 @@ const stats = [
   { value: 100, suffix: "+", label: "Homes Delivered & Underway", tick: true },
 ];
 
-const expertise: ExpertiseItem[] = [
+const disciplines: Discipline[] = [
   {
     index: "01",
     title: "Strategic Land Banking",
@@ -84,9 +85,9 @@ export default function HomePage() {
               className="display mt-7 text-[clamp(2.1rem,9vw,7rem)] font-medium leading-[0.95] tracking-[-0.03em] text-white text-shadow-hero"
               lines={[
                 "Crafting Spaces",
-                <>
+                <Fragment key="line-2">
                   Where <span className="font-light italic">Life</span> Happens
-                </>,
+                </Fragment>,
               ]}
             />
 
@@ -99,7 +100,7 @@ export default function HomePage() {
               </p>
               <div className="flex flex-col gap-4 sm:flex-row">
                 <Magnetic className="inline-block">
-                  <Button href={heroHome.primaryCta.href} variant="primary" size="lg" withArrow>
+                  <Button href={heroHome.primaryCta.href} variant="orange" size="lg" withArrow>
                     {heroHome.primaryCta.label}
                   </Button>
                 </Magnetic>
@@ -122,40 +123,42 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* Introduction + stats                                             */}
       {/* ---------------------------------------------------------------- */}
-      <section className="bg-white py-24 lg:py-32">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
-            <div className="lg:col-span-4">
-              <Eyebrow>Who We Are</Eyebrow>
-              <Reveal className="mt-7">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem] sm:aspect-[2/1] lg:aspect-[4/5]">
-                  <Image
-                    src="/visual/who-we-are.jpg"
-                    alt="A Katimas Properties construction professional on a residential site"
-                    fill
-                    sizes="(min-width: 1024px) 30vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-              </Reveal>
-            </div>
-            <div className="lg:col-span-8">
-              <Reveal>
-                <p className="display text-balance text-3xl leading-[1.25] text-ink sm:text-4xl lg:text-[2.85rem]">
-                  A Sarawak-based developer, project-management specialist and main contractor —
-                  turning prime land into communities where{" "}
-                  <span className="italic text-brand">life happens</span>.
-                </p>
-              </Reveal>
-              <Reveal delay={150} className="mt-9">
-                <Button href="/about" variant="outline" withArrow>
-                  More About Katimas
-                </Button>
-              </Reveal>
-            </div>
+      <section className="bg-white">
+        {/* The contractor photo fills the section; the copy sits on its light right side. */}
+        <div className="relative isolate overflow-hidden">
+          <div className="relative aspect-[16/10] sm:aspect-[2/1] lg:absolute lg:inset-0 lg:-z-10 lg:aspect-auto">
+            <Image
+              src="/visual/who-we-are-wide.jpg"
+              alt="A Katimas Properties construction professional on a residential site"
+              fill
+              sizes="100vw"
+              className="object-cover object-[left_30%]"
+            />
+            <div className="absolute inset-0 hidden bg-gradient-to-r from-transparent via-white/25 to-white/90 lg:block" />
           </div>
+          <Container>
+            <div className="grid py-14 lg:min-h-[620px] lg:grid-cols-12 lg:items-center lg:py-24">
+              <div className="lg:col-span-6 lg:col-start-7">
+                <Eyebrow>Who We Are</Eyebrow>
+                <Reveal className="mt-7">
+                  <p className="display text-balance text-3xl leading-[1.25] text-ink sm:text-4xl lg:text-[2.6rem]">
+                    A Sarawak-based developer, project-management specialist and main contractor —
+                    turning prime land into communities where{" "}
+                    <span className="italic text-brand">life happens</span>.
+                  </p>
+                </Reveal>
+                <Reveal delay={150} className="mt-9">
+                  <Button href="/about" variant="outline" withArrow className="bg-white/80">
+                    More About Katimas
+                  </Button>
+                </Reveal>
+              </div>
+            </div>
+          </Container>
+        </div>
 
-          <div className="mt-20 grid grid-cols-2 gap-x-8 gap-y-12 border-t border-line pt-14 lg:grid-cols-4">
+        <Container>
+          <div className="grid grid-cols-2 gap-x-8 gap-y-12 pb-24 pt-14 lg:grid-cols-4 lg:pb-32 lg:pt-20">
             {stats.map((s, i) => (
               <Reveal key={s.label} delay={i * 80}>
                 <div className="mb-5 h-px w-10 bg-clay" />
@@ -190,7 +193,7 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* Expertise                                                        */}
       {/* ---------------------------------------------------------------- */}
-      <section className="bg-white py-24 lg:py-32">
+      <section className="bg-sand py-24 lg:py-32">
         <Container>
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div>
@@ -203,8 +206,8 @@ export default function HomePage() {
               From the ground we secure to the homes we build, every role carries the same precision.
             </p>
           </div>
-          <div className="mt-16">
-            <ExpertiseList items={expertise} />
+          <div className="mt-14">
+            <DisciplineCards items={disciplines} />
           </div>
         </Container>
       </section>
@@ -225,9 +228,9 @@ export default function HomePage() {
             className="display mt-7 max-w-4xl text-[clamp(2rem,5.5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-white"
             lines={[
               "“Crafting Spaces",
-              <>
-                Where <span className="font-light italic">Life</span> Happens.&rdquo;
-              </>,
+              <Fragment key="line-2">
+                Where <span className="font-light italic">Life</span>{" "}Happens.&rdquo;
+              </Fragment>,
             ]}
           />
           <Reveal delay={300} className="mt-9 max-w-xl">
@@ -266,7 +269,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <Reveal className="mt-20 flex flex-col gap-6 overflow-hidden rounded-[1.75rem] bg-brand px-8 py-10 text-white sm:flex-row sm:items-center sm:justify-between lg:px-12 lg:py-12">
+          <Reveal className="mt-20 flex flex-col gap-6 overflow-hidden rounded-[1.75rem] bg-katimas-blue px-8 py-10 text-white sm:flex-row sm:items-center sm:justify-between lg:px-12 lg:py-12">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange">
                 On the Horizon

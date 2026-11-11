@@ -22,10 +22,6 @@ export const metadata: Metadata = {
   },
 };
 
-const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
-  contact.mapsQuery,
-)}&z=16&output=embed`;
-
 export default function ContactPage() {
   return (
     <>
@@ -41,6 +37,8 @@ export default function ContactPage() {
         eyebrow="Contact Us"
         title="Let's Connect"
         subtitle="Looking to learn more about our projects or explore opportunities with us? We would love to hear from you."
+        image="/visual/contact-hero.jpg"
+        imageAlt="Two colleagues discussing plans in an office"
       />
 
       <section className="bg-white py-20 lg:py-28">
@@ -140,19 +138,6 @@ export default function ContactPage() {
             </div>
           </div>
         </Container>
-      </section>
-
-      {/* Map */}
-      <section className="bg-sand">
-        <div className="h-[420px] w-full">
-          <iframe
-            title="Katimas Properties office location"
-            src={mapSrc}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="h-full w-full border-0 grayscale-[0.2]"
-          />
-        </div>
       </section>
     </>
   );

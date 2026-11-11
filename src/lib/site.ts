@@ -32,7 +32,6 @@ export const contact = {
     { days: "Monday – Friday", time: "8:30am – 5:45pm" },
     { days: "Sunday & Public Holidays", time: "Closed" },
   ],
-  mapsQuery: "Saradise Kuching, Lot 32 & 33 Block B2, 93350 Kuching, Sarawak",
 } as const;
 
 export type SocialLink = {
@@ -48,11 +47,10 @@ export const socials: SocialLink[] = [
   { name: "TikTok", href: "#", handle: "@katimasproperties" },
 ];
 
+/** Legal pages; their wording lives in `src/lib/legal.ts`. */
 export const legalLinks = {
-  privacy:
-    "https://docs.google.com/document/d/1zxPw9udnf0zt-NH5t1R5zjlGIlBi8Q5X/edit",
-  disclaimer:
-    "https://docs.google.com/document/u/1/d/1LV9BmwdNEibs6nvyJM0quz9ShWUTBigv/edit?usp=sharing&ouid=100922006779889102007&rtpof=true&sd=true",
+  privacy: "/privacy-notice",
+  disclaimer: "/disclaimer",
 } as const;
 
 export type NavChild = { label: string; href: string; note?: string };
@@ -66,6 +64,7 @@ export const nav: NavItem[] = [
     href: "/portfolio",
     children: [
       { label: "Portfolio Overview", href: "/portfolio" },
+      { label: "Kasa Luma", href: "/portfolio/kasa-luma", note: "Main Contractor" },
       { label: "Kasa Lumina", href: "/portfolio/kasa-lumina", note: "Main Contractor" },
       { label: "Kasa Kasturi", href: "/portfolio/kasa-kasturi", note: "Main Contractor" },
     ],
@@ -186,27 +185,43 @@ export const landBanking = {
   bankSummary:
     "Our land bank is not just about holding acreage — it is about unlocking opportunities that transform raw land into thriving, well-planned communities.",
   expansion: [
-    "Synergistic acquisitions that complement our existing portfolio.",
-    "Value-creating opportunities with strong development potential.",
-    "Partnerships aligned with our vision of building quality homes and sustainable townships in Sarawak.",
+    {
+      text: "Synergistic acquisitions that complement our existing portfolio.",
+      image: "/land/synergistic-acquisition.jpg",
+    },
+    {
+      text: "Value-creating opportunities with strong development potential.",
+      image: "/land/development-potential.jpg",
+    },
+    {
+      text: "Partnerships aligned with our vision of building quality homes and sustainable townships in Sarawak.",
+      image: "/land/sustainable-partnerships.jpg",
+    },
   ],
   whyItMatters: [
     {
       title: "Future Growth",
       description: "A secured pipeline of projects for the next decade and beyond.",
+      color: "cyan",
     },
     {
       title: "Strategic Advantage",
       description: "Control of prime locations before market demand surges.",
+      color: "orange",
     },
     {
       title: "Community Building",
       description: "Developments thoughtfully planned for lasting, positive impact.",
+      color: "green",
     },
-  ],
+  ] as { title: string; description: string; color: "cyan" | "orange" | "green" }[],
   acres: 400,
-  heroImage: "/land/aerial-hero.jpg",
-  parcelImage: "/land/parcel.jpg",
+  heroVideo: {
+    poster: "/video/land-banking-poster.jpg",
+    desktop: "/video/land-banking.mp4",
+    mobile: "/video/land-banking-mobile.mp4",
+  },
+  acresImage: "/land/farmland.jpg",
 };
 
 /* ----------------------------------------------------------------------- */
@@ -220,8 +235,9 @@ export type Project = {
   name: string;
   role: string;
   /** Sub-brand accent used to tint the project page. */
-  accent: "kasturi" | "lumina";
-  logo: string;
+  accent: "luma" | "kasturi" | "lumina";
+  /** Project logo, shown in place of imagery when `galleryAvailable` is false. */
+  logo?: string;
   tagline: string;
   status: string;
   statusTone: "complete" | "ongoing";
@@ -235,22 +251,61 @@ export type Project = {
   brief: string;
   highlights: { label: string; value: string }[];
   gallery: ProjectImage[];
-  video?: { src: string; poster: string };
+  /** Gallery video; `label` is the badge shown over it (e.g. "Walkthrough"). */
+  video?: { src: string; poster: string; label: string };
   hero: string;
+  /** Card image for the homepage and portfolio listings. Falls back to `hero`. */
+  thumbnail?: string;
+  /** PDF in /public. When set, the project page shows a "Download Brochure" button. */
+  brochure?: string;
   /** When false, gallery shows a "renders coming soon" treatment. */
   galleryAvailable: boolean;
-  /** True when imagery is illustrative stock rather than the actual project. */
-  representative?: boolean;
 };
 
 export const projects: Project[] = [
+  {
+    slug: "kasa-luma",
+    name: "Kasa Luma",
+    role: "Main Contractor",
+    accent: "luma",
+    tagline: "Single storey terrace homes thoughtfully designed to radiate.",
+    status: "Targeted completion 2029",
+    statusTone: "ongoing",
+    developer: "KMS Maju Sdn. Bhd.",
+    location: "Jalan Camar, Matang, Sarawak",
+    scale: "48 Units",
+    propertyType: "Single-Storey Terrace Houses",
+    summary:
+      "A contemporary residential development of 48 single-storey terrace homes designed for comfortable family living. Expected to launch for booking by 2026 and set to be built under our delivery as main contractor.",
+    brief:
+      "Kasa Luma represents the next highly anticipated structural execution for property developer KMS Maju Sdn. Bhd. Situated along Jalan Camar in the Matang Jaya enclave, this project comprises 48 units of spacious single-storey terrace houses dedicated to Sarawakian Bumiputera. Serving as the main contractor, Katimas Properties provides specialized construction expertise to ensure high-quality execution throughout the build. Demonstrating operational efficiency and a commitment to superior craftsmanship, our team is set to deliver these adaptable, high-ceiling homes as a sophisticated retreat for modern living.",
+    highlights: [
+      { label: "Developer", value: "KMS Maju Sdn. Bhd." },
+      { label: "Location", value: "Jalan Camar, Matang, Sarawak" },
+      { label: "Development Scale", value: "48 Units of Single-Storey Terrace Houses" },
+      { label: "Status", value: "Launch 2026 (Expected completion 24 months from S&P)" },
+    ],
+    gallery: [
+      { src: "/projects/kasa-luma/aerial.jpg", alt: "Aerial 3D render of the Kasa Luma terrace development" },
+      { src: "/projects/kasa-luma/exterior.jpg", alt: "3D render of a Kasa Luma single-storey terrace home" },
+      { src: "/projects/kasa-luma/living.jpg", alt: "3D render of a Kasa Luma living area" },
+      { src: "/projects/kasa-luma/dining-kitchen.jpg", alt: "3D render of a Kasa Luma dining and kitchen space" },
+      { src: "/projects/kasa-luma/bedroom.jpg", alt: "3D render of a Kasa Luma bedroom" },
+      { src: "/projects/kasa-luma/master-bedroom.jpg", alt: "3D render of a Kasa Luma master bedroom" },
+    ],
+    // TODO: add the Kasa Luma video once its Google Drive file is shared (the link in the
+    // website comments is private), and set `brochure` once the PDF is supplied.
+    hero: "/projects/kasa-luma/exterior.jpg",
+    thumbnail: "/projects/kasa-luma/facade.jpg",
+    galleryAvailable: true,
+  },
   {
     slug: "kasa-lumina",
     name: "Kasa Lumina",
     role: "Main Contractor",
     accent: "lumina",
     logo: "/logo/kasa-lumina-logo.png",
-    tagline: "Single-storey terrace living, designed around modern family life.",
+    tagline: "Single storey terrace homes designed to capture the radiance of serene living.",
     status: "Targeted completion 2029",
     statusTone: "ongoing",
     developer: "KMS Maju Sdn. Bhd.",
@@ -268,14 +323,20 @@ export const projects: Project[] = [
       { label: "Status", value: "Under Construction · Targeted 2029" },
     ],
     gallery: [
-      { src: "/projects/kasa-lumina/exterior-1.jpg", alt: "Contemporary single-storey home exterior, representative of the Kasa Lumina design language" },
-      { src: "/projects/kasa-lumina/lifestyle.jpg", alt: "Family enjoying the frontage of a modern single-storey home" },
-      { src: "/projects/kasa-lumina/garden.jpg", alt: "Landscaped garden and porch of a modern single-storey residence" },
-      { src: "/projects/kasa-lumina/exterior-2.jpg", alt: "Clean, contemporary single-storey facade with a manicured lawn" },
+      { src: "/projects/kasa-lumina/aerial.jpg", alt: "Aerial 3D render of the Kasa Lumina development" },
+      { src: "/projects/kasa-lumina/front-view.jpg", alt: "3D render of the Kasa Lumina terrace homes from the street" },
+      { src: "/projects/kasa-lumina/courtyard.jpg", alt: "3D render of a Kasa Lumina courtyard" },
+      { src: "/projects/kasa-lumina/dining.jpg", alt: "3D render of a Kasa Lumina dining area" },
+      { src: "/projects/kasa-lumina/living.jpg", alt: "3D render of a Kasa Lumina living room" },
+      { src: "/projects/kasa-lumina/bedroom.jpg", alt: "3D render of a Kasa Lumina bedroom" },
     ],
+    video: {
+      src: "/projects/kasa-lumina/launch-video.mp4",
+      poster: "/projects/kasa-lumina/launch-video-poster.jpg",
+      label: "Launch Video",
+    },
     hero: "/projects/kasa-lumina/front-view.jpg",
     galleryAvailable: true,
-    representative: true,
   },
   {
     slug: "kasa-kasturi",
@@ -283,7 +344,7 @@ export const projects: Project[] = [
     role: "Main Contractor",
     accent: "kasturi",
     logo: "/logo/kasa-kasturi-logo.png",
-    tagline: "Double-storey terrace homes for Sarawakian Bumiputera families.",
+    tagline: "Double storey terrace homes offering a true place to call home.",
     status: "Completed 2026 · Early Handover",
     statusTone: "complete",
     developer: "KMS Maju Sdn. Bhd.",
@@ -311,6 +372,7 @@ export const projects: Project[] = [
     video: {
       src: "/projects/kasa-kasturi/walkthrough.mp4",
       poster: "/projects/kasa-kasturi/walkthrough-poster.jpg",
+      label: "Walkthrough",
     },
     hero: "/projects/kasa-kasturi/exterior.jpg",
     galleryAvailable: true,

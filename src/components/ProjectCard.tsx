@@ -5,6 +5,11 @@ import { cn } from "@/lib/cn";
 import { IconArrowRight } from "./icons";
 
 const accent: Record<Project["accent"], { text: string; dot: string; grad: string }> = {
+  luma: {
+    text: "text-brand",
+    dot: "bg-brand",
+    grad: "from-navy to-brand",
+  },
   kasturi: {
     text: "text-kasturi",
     dot: "bg-kasturi",
@@ -22,27 +27,31 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
       href={`/portfolio/${project.slug}`}
-      className="group flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-white shadow-soft transition-all duration-500 hover:-translate-y-1.5 hover:shadow-lift"
+      className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-white shadow-soft transition-all duration-500 hover:-translate-y-1.5 hover:shadow-lift"
     >
       {/* Visual */}
       <div className="relative aspect-[16/11] overflow-hidden">
         {project.galleryAvailable ? (
           <Image
-            src={project.hero}
+            src={project.thumbnail ?? project.hero}
             alt={`${project.name} — ${project.propertyType}`}
             fill
-            sizes="(min-width: 1024px) 40vw, 100vw"
+            sizes="(min-width: 1024px) 30vw, (min-width: 768px) 50vw, 100vw"
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
         ) : (
           <div className={cn("flex h-full w-full items-center justify-center bg-gradient-to-br", a.grad)}>
-            <Image
-              src={project.logo}
-              alt={project.name}
-              width={448}
-              height={260}
-              className="h-auto w-48 opacity-95 brightness-0 invert"
-            />
+            {project.logo ? (
+              <Image
+                src={project.logo}
+                alt={project.name}
+                width={448}
+                height={260}
+                className="h-auto w-48 opacity-95 brightness-0 invert"
+              />
+            ) : (
+              <span className="display text-3xl text-white">{project.name}</span>
+            )}
           </div>
         )}
         <span className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-ink backdrop-blur">
@@ -52,19 +61,19 @@ export function ProjectCard({ project }: { project: Project }) {
       </div>
 
       {/* Body */}
-      <div className="flex flex-1 flex-col p-7 lg:p-8">
-        <div className="flex items-center gap-3 text-xs font-medium uppercase tracking-wider text-muted">
+      <div className="flex flex-1 flex-col p-6 lg:p-7">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium uppercase tracking-wider text-muted">
           <span className={cn("font-semibold", a.text)}>{project.scale}</span>
           <span className="h-1 w-1 rounded-full bg-line" />
           <span>{project.propertyType}</span>
         </div>
-        <h3 className="display mt-3 text-2xl text-ink lg:text-[1.7rem]">{project.name}</h3>
+        <h3 className="display mt-3 text-2xl text-ink">{project.name}</h3>
         <p className="mt-3 flex-1 text-pretty text-sm leading-relaxed text-muted">
           {project.summary}
         </p>
-        <div className="mt-6 flex items-center justify-between border-t border-line pt-5">
+        <div className="mt-6 flex items-center justify-between gap-4 border-t border-line pt-5">
           <span className="text-xs font-medium text-muted">{project.status}</span>
-          <span className={cn("inline-flex items-center gap-2 text-sm font-semibold", a.text)}>
+          <span className={cn("inline-flex shrink-0 items-center gap-2 text-sm font-semibold", a.text)}>
             View Project Details
             <IconArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </span>

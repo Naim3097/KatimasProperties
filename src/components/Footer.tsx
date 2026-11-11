@@ -119,22 +119,12 @@ export function Footer() {
             . All Rights Reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a
-              href={legalLinks.privacy}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:text-white"
-            >
+            <Link href={legalLinks.privacy} className="transition-colors hover:text-white">
               Privacy Notice
-            </a>
-            <a
-              href={legalLinks.disclaimer}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:text-white"
-            >
+            </Link>
+            <Link href={legalLinks.disclaimer} className="transition-colors hover:text-white">
               Disclaimer
-            </a>
+            </Link>
           </div>
         </div>
       </Container>

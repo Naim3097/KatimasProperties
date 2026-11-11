@@ -4,13 +4,17 @@ import { Container } from "./Container";
 import { Button } from "./Button";
 import { Reveal } from "./Reveal";
 
+/**
+ * Closing call-to-action banner. Every page uses the homepage's treatment by default:
+ * the team photograph under a brand-orange overlay.
+ */
 export function CtaBand({
   headline = corporateCta.headline,
   subtext = corporateCta.subtext,
   ctaLabel = corporateCta.cta.label,
   ctaHref = corporateCta.cta.href,
-  image,
-  overlay = "brand",
+  image = "/visual/team.jpg",
+  overlay = "orange",
 }: {
   headline?: string;
   subtext?: string;
@@ -23,32 +27,17 @@ export function CtaBand({
     <section className="bg-white py-20 lg:py-28">
       <Container>
         <Reveal className="relative isolate overflow-hidden rounded-[2rem] px-6 py-16 text-center sm:px-12 lg:px-16 lg:py-20">
-          {image ? (
-            <>
-              <Image
-                src={image}
-                alt=""
-                fill
-                sizes="(min-width: 1280px) 1120px, 100vw"
-                className="-z-20 object-cover"
-              />
-              <div
-                className={`absolute inset-0 -z-10 ${overlay === "orange" ? "bg-orange/75" : "bg-brand/80"}`}
-              />
-              <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-            </>
-          ) : (
-            <>
-              <div className="absolute inset-0 -z-10 bg-brand" />
-              <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-brand-light/25 via-transparent to-brand-dark/50" />
-              <span
-                aria-hidden="true"
-                className="display pointer-events-none absolute -right-6 -top-16 select-none text-[13rem] leading-none text-white/[0.06] lg:text-[17rem]"
-              >
-                K
-              </span>
-            </>
-          )}
+          <Image
+            src={image}
+            alt=""
+            fill
+            sizes="(min-width: 1280px) 1120px, 100vw"
+            className="-z-20 object-cover"
+          />
+          <div
+            className={`absolute inset-0 -z-10 ${overlay === "orange" ? "bg-orange/75" : "bg-brand/80"}`}
+          />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
           <h2 className="display mx-auto max-w-2xl text-balance text-3xl leading-tight text-white sm:text-4xl">
             {headline}
           </h2>

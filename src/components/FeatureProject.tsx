@@ -5,10 +5,12 @@ import { cn } from "@/lib/cn";
 import { IconArrowRight } from "./icons";
 
 const accent: Record<Project["accent"], string> = {
+  luma: "text-brand",
   kasturi: "text-kasturi",
   lumina: "text-lumina",
 };
 const accentDot: Record<Project["accent"], string> = {
+  luma: "bg-brand",
   kasturi: "bg-kasturi",
   lumina: "bg-lumina",
 };
@@ -33,7 +35,7 @@ export function FeatureProject({
         )}
       >
         <Image
-          src={project.hero}
+          src={project.thumbnail ?? project.hero}
           alt={`${project.name} — ${project.propertyType}`}
           fill
           sizes="(min-width: 1024px) 58vw, 100vw"

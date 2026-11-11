@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { Container } from "./Container";
 import { Eyebrow } from "./SectionHeading";
+import { HeroVideo } from "./HeroVideo";
 
 type Crumb = { label: string; href?: string };
 
@@ -13,6 +14,7 @@ export function PageHero({
   subtitle,
   image,
   imageAlt,
+  video,
   breadcrumb,
   align = "left",
 }: {
@@ -21,19 +23,29 @@ export function PageHero({
   subtitle?: ReactNode;
   image?: string;
   imageAlt?: string;
+  /** Muted background video (like the homepage hero); takes precedence over `image`. */
+  video?: { poster: string; desktop: string; mobile: string };
   breadcrumb?: Crumb[];
   align?: "left" | "center";
 }) {
   const centered = align === "center";
   return (
     <section className="relative isolate overflow-hidden bg-navy">
-      {image ? (
+      {video ? (
+        <>
+          <HeroVideo poster={video.poster} desktop={video.desktop} mobile={video.mobile} />
+          {/* Logo-blue wash as on the homepage hero, deepened on the text side. */}
+          <div className="absolute inset-0 bg-brand/45" />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand/80 via-brand/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-navy/30" />
+        </>
+      ) : image ? (
         <>
           <Image
             src={image}
             alt={imageAlt ?? ""}
             fill
-            priority
+            preload
             sizes="100vw"
             className="object-cover"
           />

@@ -28,7 +28,7 @@ export function HeroVideo({
 
   return (
     <>
-      <Image src={poster} alt="" fill priority sizes="100vw" className="object-cover" />
+      <Image src={poster} alt="" fill preload sizes="100vw" className="object-cover" />
       {src && (
         <video
           autoPlay
